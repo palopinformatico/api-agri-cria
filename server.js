@@ -3,6 +3,8 @@ const cors = require('cors');
 const app = express();
 const authRoutes = require('./routes/auth');
 const protectedRoutes = require('./routes/protected');
+const reportesRouter = require('./routes/reportes');
+const dashboardRouter = require('./routes/dashboard');
 require('dotenv').config();
 
 app.use(cors({
@@ -17,6 +19,8 @@ app.use(express.json());
 
 app.use('/api', authRoutes);
 app.use('/api', protectedRoutes);
+app.use('/api/reportes', reportesRouter);
+app.use('/api/dashboard', dashboardRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
