@@ -1,27 +1,34 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Esto ahora debe ser un pool de mysql2/promise
+const db = require('../db');
 const authenticateToken = require('../middlewares/authMiddleware');
 
-// POST para guardar reporte
-// ¡Marcar la función del handler como 'async'!
 router.post('/', authenticateToken, async (req, res) => {
   const {
     filtro,
-    tipoActividad,
-    area,
-    volumen,
+    tipoGanado,
+    numeroCabezas,
+    pesoPromedio,
+    alimentacion,
     duracion,
-    humedad,
-    costo
+    costo,
   } = req.body;
 
   const sql = `
-    INSERT INTO reportes (filtro, tipoActividad, area, volumen, duracion, humedad, costo)
+    INSERT INTO reportes_ganaderos 
+    (filtro, tipo_ganado, numero_cabezas, peso_promedio, alimentacion, duracion, costo)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  const values = [filtro, tipoActividad, area, volumen, duracion, humedad, costo];
+  const values = [
+    filtro || null,
+    tipoGanado || null,
+    numeroCabezas || null,
+    pesoPromedio || null,
+    alimentacion || null,
+    duracion || null,
+    costo || null,
+  ];
 
   try {
     // Usar await con pool.execute() para queries con placeholders (?)

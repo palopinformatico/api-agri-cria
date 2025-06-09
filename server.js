@@ -5,6 +5,8 @@ const authRoutes = require('./routes/auth');
 const protectedRoutes = require('./routes/protected');
 const reportesRouter = require('./routes/reportes');
 const dashboardRouter = require('./routes/dashboard');
+const reportesGanadero = require('./routes/reportesGanadero');
+const dashboardGanadero = require('./routes/dashboardGanadero');
 require('dotenv').config();
 
 app.use(cors({
@@ -21,6 +23,8 @@ app.use('/api', authRoutes);
 app.use('/api', protectedRoutes);
 app.use('/api/reportes', reportesRouter);
 app.use('/api/dashboard', dashboardRouter);
+app.use('/api/reportesGanadero', reportesGanadero);
+app.use('/api/dashboardGanadero', dashboardGanadero);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
